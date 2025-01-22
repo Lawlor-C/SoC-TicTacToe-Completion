@@ -11,6 +11,11 @@ import "./App.css";
 // Assign a state variable to each button so when clicked, change to X (for now)
 // Assign each button an index value 0-8
 
+function ResetButton ({onReset}){
+  return <button onClick={onReset}>Reload Page</button>
+};
+
+
 function Tile({ num, tileClick }) {
   return <button className="tile" onClick={tileClick}>{num}</button>;
 }
@@ -20,27 +25,31 @@ export default function Grid() {
   const [nextMove, setNextMove] = useState(true);
   function handleClick(i){
     if(tiles [i] )
-    {
+      {
         return 
-    }
-       
-
-    console.log("working")
-    const update = tiles.slice()
-    if(nextMove) {
+      }
+      
+      
+      console.log("working")
+      const update = tiles.slice()
+      if(nextMove) {
         update[i] = "X"
-    } 
-    else{
+      } 
+      else{
         update[i] = "O"
+      }
+      setTiles(update)
+      setNextMove(!nextMove)
+      // when user clicks a button it will change from null to X
+      // create a variable which will insert the X into the relevant tile 
+      //use variable in the set tiles to re render with new value 
     }
-    setTiles(update)
-    setNextMove(!nextMove)
-// when user clicks a button it will change from null to X
-// create a variable which will insert the X into the relevant tile 
-//use variable in the set tiles to re render with new value 
-  }
-  return (
-    <>
+    function handleReset () {
+      setTiles(Array(9).fill(null))
+      setNextMove(true)
+    };
+    return (
+      <>
       <div className="grid-row">
         <Tile num={tiles[0]} tileClick= {() => handleClick(0)} />
         <Tile num={tiles[1]} tileClick ={() => handleClick(1)}/>
@@ -56,6 +65,7 @@ export default function Grid() {
         <Tile num={tiles[7]} tileClick ={() => handleClick(7)}/>
         <Tile num={tiles[8]} tileClick ={() => handleClick(8)}/>
       </div>
+      <ResetButton onReset={handleReset}/> 
     </>
   );
 }
