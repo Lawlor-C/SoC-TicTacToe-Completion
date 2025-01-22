@@ -12,7 +12,7 @@ import "./App.css";
 // Assign each button an index value 0-8
 
 function Tile({ num, tileClick }) {
-  return <button className="tile" onClick={tileClick()}>{num}</button>;
+  return <button className="tile" onClick={tileClick}>{num}</button>;
 }
 
 export default function Grid() {
