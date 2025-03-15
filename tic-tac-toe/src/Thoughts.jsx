@@ -13,11 +13,12 @@
 // 159 → [0, 4, 8]
 // 357 → [2, 4, 6]
 
+//Keeping the R/C/D separate for late-stage implementation of win condition text/CSS, whether that's a good idea or not, remains to be seen.
 export const winGame = {
   winRows: [
     [0, 1, 2],
     [3, 4, 5],
-    [6, 7.8],
+    [6, 7, 8],
   ],
   winCols: [
     [0, 3, 6],
@@ -29,3 +30,20 @@ export const winGame = {
     [2, 4, 6],
   ],
 };
+
+//Need a function to check for the winning combos
+export function winningCombos() {
+  return [winGame.winRows, winGame.winCols, winGame.winDiags];
+}
+
+//Now to work out how to check whether either player has triggered any of the above.
+//Tiles are either null X or O - obvs null needs negating from the win conditions else we'd never get started.
+//State of the [tiles] are tracked in the Grid function onClick so need to integrate the winningCombos into the same onClick as it updates
+//Will need to add a new State for if someone has won, preventing further play.
+//This will also need to feed into the onClick as everything is essentially boiled down to whether play can continue (X/O already sorted)
+//Trigger an alert or update of some sort to confirm Win (variations on this to come once functional...)
+//Add a Stalemate scenario once all nulls are gone and if no winner
+
+
+//Once functional, CSS updates to show which tiles won.
+
