@@ -34,7 +34,7 @@ export default function Grid() {
     }
 
     console.log("working");
-    
+
     const update = tiles.slice();
     if (nextMove) {
       update[i] = "X";
@@ -43,7 +43,7 @@ export default function Grid() {
     }
     setTiles(update);
     setNextMove(!nextMove);
-    
+
     // when user clicks a button it will change from null to X
     // create a variable which will insert the X into the relevant tile
     //use variable in the set tiles to re render with new value
@@ -88,12 +88,15 @@ export default function Grid() {
 // Change selected grid ref to O - P2
 // Until win
 
-// Winning conditions
-// 123
-// 456
-// 789
-// 147
-// 258
-// 369
-// 159
-// 357
+// Winning Conditions (Grid position and the equivalent Zero-Index)
+// Rows:
+// 123 → [0, 1, 2]
+// 456 → [3, 4, 5]
+// 789 → [6, 7, 8]
+// Columns:
+// 147 → [0, 3, 6]
+// 258 → [1, 4, 7]
+// 369 → [2, 5, 8]
+// Diagonals:
+// 159 → [0, 4, 8]
+// 357 → [2, 4, 6]
