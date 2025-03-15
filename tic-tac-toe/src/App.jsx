@@ -11,61 +11,65 @@ import "./App.css";
 // Assign a state variable to each button so when clicked, change to X (for now)
 // Assign each button an index value 0-8
 
-function ResetButton ({onReset}){
-  return <button onClick={onReset}>Reload Page</button>
-};
-
+function ResetButton({ onReset }) {
+  return <button onClick={onReset}>Reload Page</button>;
+}
 
 function Tile({ num, tileClick }) {
-  return <button className="tile" onClick={tileClick}>{num}</button>;
+  return (
+    <button className="tile" onClick={tileClick}>
+      {num}
+    </button>
+  );
 }
 
 export default function Grid() {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [nextMove, setNextMove] = useState(true);
-  function handleClick(i){
-    if(tiles [i] )
-      {
-        return 
-      }
-      
-      
-      console.log("working")
-      const update = tiles.slice()
-      if(nextMove) {
-        update[i] = "X"
-      } 
-      else{
-        update[i] = "O"
-      }
-      setTiles(update)
-      setNextMove(!nextMove)
-      // when user clicks a button it will change from null to X
-      // create a variable which will insert the X into the relevant tile 
-      //use variable in the set tiles to re render with new value 
+  //Added console log here to mark where the CURRENT state of play is.
+  console.log(tiles);
+  function handleClick(i) {
+    if (tiles[i]) {
+      return;
     }
-    function handleReset () {
-      setTiles(Array(9).fill(null))
-      setNextMove(true)
-    };
-    return (
-      <>
+
+    console.log("working");
+    
+    const update = tiles.slice();
+    if (nextMove) {
+      update[i] = "X";
+    } else {
+      update[i] = "O";
+    }
+    setTiles(update);
+    setNextMove(!nextMove);
+    
+    // when user clicks a button it will change from null to X
+    // create a variable which will insert the X into the relevant tile
+    //use variable in the set tiles to re render with new value
+  }
+  function handleReset() {
+    setTiles(Array(9).fill(null));
+    setNextMove(true);
+  }
+  return (
+    <>
       <div className="grid-row">
-        <Tile num={tiles[0]} tileClick= {() => handleClick(0)} />
-        <Tile num={tiles[1]} tileClick ={() => handleClick(1)}/>
-        <Tile num={tiles[2]} tileClick ={() => handleClick(2)}/>
+        <Tile num={tiles[0]} tileClick={() => handleClick(0)} />
+        <Tile num={tiles[1]} tileClick={() => handleClick(1)} />
+        <Tile num={tiles[2]} tileClick={() => handleClick(2)} />
       </div>
       <div className="grid-row">
-        <Tile num={tiles[3]} tileClick ={() => handleClick(3)}/>
-        <Tile num={tiles[4]} tileClick ={() => handleClick(4)}/>
-        <Tile num={tiles[5]} tileClick ={() => handleClick(5)}/>
+        <Tile num={tiles[3]} tileClick={() => handleClick(3)} />
+        <Tile num={tiles[4]} tileClick={() => handleClick(4)} />
+        <Tile num={tiles[5]} tileClick={() => handleClick(5)} />
       </div>
       <div className="grid-row">
-        <Tile num={tiles[6]} tileClick ={() => handleClick(6)}/>
-        <Tile num={tiles[7]} tileClick ={() => handleClick(7)}/>
-        <Tile num={tiles[8]} tileClick ={() => handleClick(8)}/>
+        <Tile num={tiles[6]} tileClick={() => handleClick(6)} />
+        <Tile num={tiles[7]} tileClick={() => handleClick(7)} />
+        <Tile num={tiles[8]} tileClick={() => handleClick(8)} />
       </div>
-      <ResetButton onReset={handleReset}/> 
+      <ResetButton onReset={handleReset} />
     </>
   );
 }
