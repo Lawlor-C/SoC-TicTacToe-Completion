@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { checkWinner } from "./Winnings";
 import "./App.css";
 
 // Grid - 3x3 - #1-9
@@ -26,10 +27,13 @@ function Tile({ num, tileClick }) {
 export default function Grid() {
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [nextMove, setNextMove] = useState(true);
+  const [winner, setWinner] = useState(null);
   //Added console log here to mark where the CURRENT state of play is.
   console.log(tiles);
+
   function handleClick(i) {
-    if (tiles[i]) {
+    if (tiles[i] || winner) {
+      //updated to prevent clicks if game won
       return;
     }
 
@@ -42,36 +46,47 @@ export default function Grid() {
       update[i] = "O";
     }
     setTiles(update);
-    setNextMove(!nextMove);
+    //Check for winstate
+    const currentPlayer = nextMove ? "X" : "O"; // Store the current player
+    if (checkWinner(update, currentPlayer)) {
+      setWinner(currentPlayer);
+    } else {
+      setNextMove(!nextMove);
+    }
+  }
 
-    // when user clicks a button it will change from null to X
-    // create a variable which will insert the X into the relevant tile
-    //use variable in the set tiles to re render with new value
-  }
-  function handleReset() {
-    setTiles(Array(9).fill(null));
-    setNextMove(true);
-  }
-  return (
-    <>
-      <div className="grid-row">
-        <Tile num={tiles[0]} tileClick={() => handleClick(0)} />
-        <Tile num={tiles[1]} tileClick={() => handleClick(1)} />
-        <Tile num={tiles[2]} tileClick={() => handleClick(2)} />
-      </div>
-      <div className="grid-row">
-        <Tile num={tiles[3]} tileClick={() => handleClick(3)} />
-        <Tile num={tiles[4]} tileClick={() => handleClick(4)} />
-        <Tile num={tiles[5]} tileClick={() => handleClick(5)} />
-      </div>
-      <div className="grid-row">
-        <Tile num={tiles[6]} tileClick={() => handleClick(6)} />
-        <Tile num={tiles[7]} tileClick={() => handleClick(7)} />
-        <Tile num={tiles[8]} tileClick={() => handleClick(8)} />
-      </div>
-      <ResetButton onReset={handleReset} />
-    </>
-  );
+  //setNextMove(!nextMove); This has now been moved into the above function
+
+  // when user clicks a button it will change from null to X
+  // create a variable which will insert the X into the relevant tile
+  //use variable in the set tiles to re render with new value
+
+function handleReset() {
+  setTiles(Array(9).fill(null));
+  setNextMove(true);
+  setWinner(null);
+}
+return (
+  <>
+    <h1>{winner ? `${winner} Wins!` : `Next Move: ${nextMove ? "X" : "O"}`}</h1>
+    <div className="grid-row">
+      <Tile num={tiles[0]} tileClick={() => handleClick(0)} />
+      <Tile num={tiles[1]} tileClick={() => handleClick(1)} />
+      <Tile num={tiles[2]} tileClick={() => handleClick(2)} />
+    </div>
+    <div className="grid-row">
+      <Tile num={tiles[3]} tileClick={() => handleClick(3)} />
+      <Tile num={tiles[4]} tileClick={() => handleClick(4)} />
+      <Tile num={tiles[5]} tileClick={() => handleClick(5)} />
+    </div>
+    <div className="grid-row">
+      <Tile num={tiles[6]} tileClick={() => handleClick(6)} />
+      <Tile num={tiles[7]} tileClick={() => handleClick(7)} />
+      <Tile num={tiles[8]} tileClick={() => handleClick(8)} />
+    </div>
+    <ResetButton onReset={handleReset} />
+  </>
+);
 }
 
 // 	When clicked, changes to either X or O, alternating based on previous button’s state

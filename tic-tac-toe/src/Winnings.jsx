@@ -33,7 +33,7 @@ export const winGame = {
 
 //Need a function to check for the winning combos
 export function winningCombos() {
-  return [winGame.winRows, winGame.winCols, winGame.winDiags];
+  return [...winGame.winRows, ...winGame.winCols, ...winGame.winDiags];
 }
 
 //Now to work out how to check whether either player has triggered any of the above.
@@ -44,6 +44,11 @@ export function winningCombos() {
 //Trigger an alert or update of some sort to confirm Win (variations on this to come once functional...)
 //Add a Stalemate scenario once all nulls are gone and if no winner
 
+export function checkWinner(tiles, player) {
+  const allCombos = winningCombos();
+  return allCombos.some((combo) =>
+    combo.every((index) => tiles[index] === player)
+  );
+}
 
 //Once functional, CSS updates to show which tiles won.
-
