@@ -36,13 +36,12 @@ export function winningCombos() {
   return [...winGame.winRows, ...winGame.winCols, ...winGame.winDiags];
 }
 
-//Now to work out how to check whether either player has triggered any of the above.
-//Tiles are either null X or O - obvs null needs negating from the win conditions else we'd never get started.
-//State of the [tiles] are tracked in the Grid function onClick so need to integrate the winningCombos into the same onClick as it updates
-//Will need to add a new State for if someone has won, preventing further play.
-//This will also need to feed into the onClick as everything is essentially boiled down to whether play can continue (X/O already sorted)
-//Trigger an alert or update of some sort to confirm Win (variations on this to come once functional...)
-//Add a Stalemate scenario once all nulls are gone and if no winner
+//Now to work out how to check whether either player has triggered any of the above. ✅
+//Tiles are either null X or O - obvs null needs negating from the win conditions else we'd never get started. - wasn't an issue
+//State of the [tiles] are tracked in the Grid function onClick so need to integrate the winningCombos into the same onClick as it updates ✅
+//Will need to add a new State for if someone has won, preventing further play. ✅
+//This will also need to feed into the onClick as everything is essentially boiled down to whether play can continue (X/O already sorted) ✅
+//Trigger an alert or update of some sort to confirm Win (variations on this to come once functional...) ✅
 
 export function checkWinner(tiles, player) {
   const allCombos = winningCombos();
@@ -51,4 +50,11 @@ export function checkWinner(tiles, player) {
   );
 }
 
-//Once functional, CSS updates to show which tiles won.
+//Add a Stalemate scenario once all nulls are gone and if no winner ✅
+
+//Once functional, I want to make CSS updates as follows:
+
+// Dynamic Restart Button (ie contextual)
+// Make tiles standard size throughout as currently dependent on null/x/o ✅
+// A proper grid layout ie definition between tiles ✅
+// To show which tiles won. (flash / whatever)

@@ -13,7 +13,7 @@ import "./App.css";
 // Assign each button an index value 0-8
 
 function ResetButton({ onReset }) {
-  return <button onClick={onReset}>Reload Page</button>;
+  return <button onClick={onReset}>Restart Game</button>;
 }
 
 function Tile({ num, tileClick }) {
@@ -25,9 +25,11 @@ function Tile({ num, tileClick }) {
 }
 
 export default function Grid() {
+
   const [tiles, setTiles] = useState(Array(9).fill(null));
   const [nextMove, setNextMove] = useState(true);
   const [winner, setWinner] = useState(null);
+
   //Added console log here to mark where the CURRENT state of play is.
   console.log(tiles);
 
@@ -37,7 +39,7 @@ export default function Grid() {
       return;
     }
 
-    console.log("working");
+    // console.log("working"); No longer needed
 
     const update = tiles.slice();
     if (nextMove) {
@@ -46,13 +48,21 @@ export default function Grid() {
       update[i] = "O";
     }
     setTiles(update);
-    //Check for winstate
+
+    
     const currentPlayer = nextMove ? "X" : "O"; // Store the current player
+      
+    //Check for winner
     if (checkWinner(update, currentPlayer)) {
       setWinner(currentPlayer);
-    } else {
-      setNextMove(!nextMove);
+      return;
     }
+    // Check for a stalemate
+  if (update.every(tile => tile !== null)) {
+    setWinner("Stalemate!"); // Update the winner state to reflect a draw
+    return;
+  }
+  setNextMove(!nextMove);
   }
 
   //setNextMove(!nextMove); This has now been moved into the above function
@@ -68,7 +78,14 @@ function handleReset() {
 }
 return (
   <>
-    <h1>{winner ? `${winner} Wins!` : `Next Move: ${nextMove ? "X" : "O"}`}</h1>
+    <h1>
+  {winner
+    ? winner === "Stalemate!"
+      ? "It's a draw!"
+      : `${winner} Wins!`
+    : `Next Move: ${nextMove ? "X" : "O"}`}
+</h1>
+
     <div className="grid-row">
       <Tile num={tiles[0]} tileClick={() => handleClick(0)} />
       <Tile num={tiles[1]} tileClick={() => handleClick(1)} />
@@ -83,7 +100,7 @@ return (
       <Tile num={tiles[6]} tileClick={() => handleClick(6)} />
       <Tile num={tiles[7]} tileClick={() => handleClick(7)} />
       <Tile num={tiles[8]} tileClick={() => handleClick(8)} />
-    </div>
+    </div> <br></br>
     <ResetButton onReset={handleReset} />
   </>
 );

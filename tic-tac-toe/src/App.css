@@ -12,7 +12,7 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 6em #646cffaa);
+  filter: drop-shadow(0 0 6em #1c910caa);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 6em #61dafbaa);
@@ -40,3 +40,27 @@
 .read-the-docs {
   color: #888;
 }
+
+.tile {
+  width: 100px; /* Set a fixed width */
+  height: 100px; /* Set a fixed height */
+  display: inline-flex; /* Centers the content horizontally and vertically */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  font-size: 2rem; /* Adjust font size as needed */
+  margin: 5px; /* Add spacing between tiles */
+  border: 3px solid #000; /* Add a border if desired */
+  background-color: #f9f9f9; /* Set a background color */
+  cursor: pointer;
+  box-sizing: border-box; /* Ensure padding and border are included in width/height */
+  overflow: hidden; /* Prevent content from overflowing */
+  white-space: nowrap; /* Prevent content from wrapping */
+}
+
+.grid-row {
+  display: flex; /* Arrange tiles in a row */
+  justify-content: center; /* Center the row contents */
+  margin: 0; /* Remove any default spacing */
+  padding: 0; /* Remove unnecessary padding */
+}
+
