@@ -8,5 +8,7 @@ Original repo can be found here: https://github.com/SchoolOfCode/week-7-react-ti
 
 I will complete the functionality and apply suitable css standards.
 
+Update: Having implemented the functionality for Win and Stalemate states, and somewhat improved the css, I feel attempting to further stylise the css at this stage is unproductive. The components are not laid out how I'd have done them and so overlaps are causing more issues than are worth solving for such a minor project.
+I feel perhaps making a similar app from scratch will be a more productive use of my time.
 
-
+Update - I have had to duplicate this project into a new repo as the SoC original file from which we forked ispPrivate, thus any forks are inherently Private.
